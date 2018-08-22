@@ -47,6 +47,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.ReportViewer.ProcessingObjectModel\11.0.0.0__89845dcd8080cc91\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MWArray, Version=2.17.1.0, Culture=neutral, PublicKeyToken=e1d84a0da19db86f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\MWArray.dll</HintPath>
@@ -58,6 +69,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,11 +82,35 @@
   <ItemGroup>
     <Compile Include="baseClass.cs" />
     <Compile Include="easyAccess.cs" />
+    <Compile Include="FormCfgCal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCfgCal.Designer.cs">
+      <DependentUpon>FormCfgCal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDataRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataRpt.Designer.cs">
+      <DependentUpon>FormDataRpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormGraphRpt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGraphRpt.Designer.cs">
+      <DependentUpon>FormGraphRpt.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormIndex.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormIndex.Designer.cs">
       <DependentUpon>FormIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTest.Designer.cs">
+      <DependentUpon>FormTest.cs</DependentUpon>
     </Compile>
     <Compile Include="FormYuce.cs">
       <SubType>Form</SubType>
@@ -87,6 +123,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>jominyDBDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="jominyDBDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="myEvent.cs" />
     <Compile Include="OracleHelper.cs" />
@@ -104,6 +145,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlHelper.cs" />
+    <EmbeddedResource Include="FormCfgCal.resx">
+      <DependentUpon>FormCfgCal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataRpt.resx">
+      <DependentUpon>FormDataRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGraphRpt.resx">
+      <DependentUpon>FormGraphRpt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormIndex.resx">
       <DependentUpon>FormIndex.cs</DependentUpon>
     </EmbeddedResource>
@@ -112,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormStarting.resx">
       <DependentUpon>FormStarting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTest.resx">
+      <DependentUpon>FormTest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormYuce.resx">
       <DependentUpon>FormYuce.cs</DependentUpon>
@@ -126,6 +180,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="ReportSample.rdlc" />
     <None Include="app.config" />
     <None Include="jominyDBDataSet.xsc">
       <DependentUpon>jominyDBDataSet.xsd</DependentUpon>
@@ -137,6 +193,17 @@
     </None>
     <None Include="jominyDBDataSet.xss">
       <DependentUpon>jominyDBDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="jominyDBDataSet1.xsc">
+      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="jominyDBDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>jominyDBDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="jominyDBDataSet1.xss">
+      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -153,16 +220,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="jominyDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="jominyDB_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>jominyDB.mdf</DependentUpon>
     </Content>
     <None Include="2.jpg" />
-    <Content Include="SADB.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="SADB.mdb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

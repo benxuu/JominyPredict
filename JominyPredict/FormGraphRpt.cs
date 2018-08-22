@@ -9,21 +9,17 @@ using System.Windows.Forms;
 
 namespace JominyPredict
 {
-    public partial class FormStarting : Form
+    public partial class FormGraphRpt : Form
     {
-        public FormStarting()
+        public FormGraphRpt()
         {
             InitializeComponent();
-            baseClass.closestart = this.closeStart;
-        }
-        public void closeStart()
-        {
-            this.Close();
         }
 
-        private void FormStarting_Load(object sender, EventArgs e)
+        private void FormGraphRpt_Load(object sender, EventArgs e)
         {
 
+            this.reportViewer1.RefreshReport();
         }
     }
 }

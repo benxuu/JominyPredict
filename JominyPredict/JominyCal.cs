@@ -19,7 +19,7 @@ namespace JominyPredict
         /// <param name="steeltype">"net1E0669"</param>
         /// <param name="inputdata">{ 0.3294, 1.0320, 0.2880, 0.0300, 0.1670, 0.0262, 0.0108, 0.0022 }</param>
         /// <returns></returns>
-        public double[] steelcal(string steeltype, double[] inputdata)
+        public double[] steelcal_double(string steeltype, double[] inputdata)
         {
 
             MWCharArray calname = steeltype;
@@ -27,8 +27,19 @@ namespace JominyPredict
             MWNumericArray x = (MWNumericArray)inputdata;
             MWNumericArray d = (MWNumericArray)sc.calculate(calname, x);
             //MWArray d = sc.calculate((MWArray)calname,(MWArray)x);
-            double[] s1 = new double[36];
+            //double[] s1 = new double[36];
             return (double[])d.ToVector(MWArrayComponent.Real);
+        }
+
+        public string steelcal_string(string steeltype, double[] inputdata) {
+            double[] rsd = steelcal_double(steeltype, inputdata);
+            string ss = string.Empty;
+            for (int i = 0; i < 10; i++)
+            {
+                ss += rsd[i].ToString() + ",";
+            }
+            return ss;
+
         }
 
         //  steelnet.Calculate sc = new Calculate();

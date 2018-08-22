@@ -41,7 +41,7 @@ namespace JominyPredict
         //自定义事件委托
         public delegate void eventDelegate(object sender, myEventArgs e);
         public static EasyAccess ea = new EasyAccess();
-
+       
         /// <summary>
         /// 测试样品编号是否已存在，返回true表示唯一（不存在），返回false表示已存在
         /// </summary>
@@ -49,8 +49,9 @@ namespace JominyPredict
         /// <returns></returns>
         public static bool isOnly(string sampleId)
         {
-            string sql = "select count(*) from tb_sample where sampleID='" + sampleId + "'";
-            return (int)ea.ExcuteScalar(sql) < 1;
+            string sql = "select count(*) from tbSample where sampleID='" + sampleId + "'";
+            return (int)SqlHelper.ExecuteScalar(SqlHelper.connStr, sql) < 1;
+           // return (int)ea.ExcuteScalar(sql) < 1;
         }
         //测试检化验平台oracle数据库是否连通
         public static bool isOraceConn()
@@ -64,14 +65,14 @@ namespace JominyPredict
         /// <returns></returns>
         public static string getAlg(string steel)
         {
-            string sql = "select alg from tb_steelalg where steel='" + steel + "'";
-            if (ea.ExcuteScalar(sql) is DBNull)
+            string sql = "select alg from tbSteelAlg where steel='" + steel + "'";
+            if(SqlHelper.ExecuteScalar(SqlHelper.connStr,sql) is DBNull)
             {
                 return "";
             }
             else
             {
-                return (string)ea.ExcuteScalar(sql);
+                return (string)SqlHelper.ExecuteScalar(SqlHelper.connStr, sql);
             }
 
         }

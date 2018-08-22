@@ -29,14 +29,14 @@ namespace JominyPredict
         public void showMbox(string s) { MessageBox.Show(s); }
         public void progressBarChange(int progressBarValue)
         {
-            //if (progressBarValue < 101)
-            //{
-            //    this.toolStripProgressBar1.Value = progressBarValue;
-            //}
-            //else
-            //{
-            //    this.toolStripProgressBar1.Value = 0;
-            //}
+            if (progressBarValue < 101)
+            {
+                this.toolStripProgressBar1.Value = progressBarValue;
+            }
+            else
+            {
+                this.toolStripProgressBar1.Value = 0;
+            }
         }
         /// <summary> 
         /// Search mdi child form by specific type string 
@@ -80,7 +80,6 @@ namespace JominyPredict
         {
 
             Form myChild = null;
-
             if (!ContainMDIChild(ChildTypeString))
             {
                 // Get current process assembly 
@@ -105,9 +104,29 @@ namespace JominyPredict
                 {
                     myChild = obj as Form;
                     myChild.MdiParent = this;
-                    myChild.Show();
+                   
                     myChild.WindowState = FormWindowState.Maximized;//最大化
+                    //myChild.AutoSize = false;
+                    //myChild.MaximizeBox = false;
+                    //myChild.MinimizeBox = false;
+                    myChild.FormBorderStyle = FormBorderStyle.None;
+                    myChild.ControlBox = false;
+                    //myChild.AutoScaleMode = AutoScaleMode.None;
+                    //myChild.StartPosition =System.Windows.Forms.FormStartPosition.CenterParent;
+                    myChild.TopMost = true;
+                    myChild.Show();
                     myChild.Focus();
+                  //  myChild.Refresh();
+                    //为了解决首次打开子窗体显示不正常问题
+                    if (ContainMDIChild(typeof(FormIndex).ToString()))
+                    {
+                        myChild.TopMost = true;
+                        myChild.Show();
+                        myChild.Focus();
+                    }
+                   
+                   // this.Refresh();
+                    //myChild.Owner.Refresh();
 
                 }
             }
@@ -125,9 +144,9 @@ namespace JominyPredict
             //loadYC();
 
             //预加载预测页
-            FormYuce yuce1 = new FormYuce(); 
-            yuce1.MdiParent = this;
-
+            //FormYuce yuce1 = new FormYuce(); 
+            //yuce1.MdiParent = this;
+            OpenWindow(typeof(FormYuce).ToString());
             //自动打开首页
             OpenWindow(typeof(FormIndex).ToString());
 
@@ -143,11 +162,32 @@ namespace JominyPredict
             }
             //close the starting page
             baseClass.closestart();
+            this.WindowState = FormWindowState.Maximized;
         }
 
         private void toolStripLabel2_Click(object sender, EventArgs e)
         {
-            OpenWindow(typeof(FormYuce).ToString());
+            OpenWindow(typeof(FormYuce).ToString());            
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormTest).ToString());
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormCfgCal).ToString());
+        }
+        //数据报表
+        private void toolStripLabel5_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormDataRpt).ToString());
+        }
+        //图形报表
+        private void toolStripLabel6_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormGraphRpt).ToString());
         }
     }
 }
