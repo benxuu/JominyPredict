@@ -15,11 +15,5 @@ namespace JominyPredict
         {
             InitializeComponent();
         }
-
-        private void FormGraphRpt_Load(object sender, EventArgs e)
-        {
-
-            this.reportViewer1.RefreshReport();
-        }
     }
 }

@@ -1,0 +1,5 @@
+D:\github\JominyPredict\benCommon\obj\Release\benCommon.csprojResolveAssemblyReference.cache
+D:\github\JominyPredict\benCommon\bin\Release\benCommon.dll
+D:\github\JominyPredict\benCommon\bin\Release\benCommon.pdb
+D:\github\JominyPredict\benCommon\obj\Release\benCommon.dll
+D:\github\JominyPredict\benCommon\obj\Release\benCommon.pdb

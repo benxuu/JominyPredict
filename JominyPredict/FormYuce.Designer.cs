@@ -28,36 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btCal = new System.Windows.Forms.Button();
-            this.btSave = new System.Windows.Forms.Button();
             this.lbSampleID = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.tbSteelAlgBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jominyDBDataSet = new JominyPredict.jominyDBDataSet();
-            this.tbSteelAlgTableAdapter = new JominyPredict.jominyDBDataSetTableAdapters.tbSteelAlgTableAdapter();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.SampleNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.steelClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.C = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Si = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ni = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ti = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Mo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.B = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Jominy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.algDateTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbSampleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jominyDBDataSet1 = new JominyPredict.jominyDBDataSet1();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -75,38 +50,21 @@
             this.tbC = new System.Windows.Forms.TextBox();
             this.tbCr = new System.Windows.Forms.TextBox();
             this.tbMn = new System.Windows.Forms.TextBox();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btReCal = new System.Windows.Forms.Button();
-            this.tbSampleTableAdapter = new JominyPredict.jominyDBDataSet1TableAdapters.tbSampleTableAdapter();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSteelAlgBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet1)).BeginInit();
+            this.tbResult = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btCal
             // 
             this.btCal.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btCal.Location = new System.Drawing.Point(763, 70);
+            this.btCal.Location = new System.Drawing.Point(763, 92);
             this.btCal.Name = "btCal";
-            this.btCal.Size = new System.Drawing.Size(120, 49);
+            this.btCal.Size = new System.Drawing.Size(173, 49);
             this.btCal.TabIndex = 0;
-            this.btCal.Text = "预测计算";
+            this.btCal.Text = "预报实验";
             this.btCal.UseVisualStyleBackColor = true;
             this.btCal.Click += new System.EventHandler(this.btCal_Click);
-            // 
-            // btSave
-            // 
-            this.btSave.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btSave.Location = new System.Drawing.Point(763, 173);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(120, 49);
-            this.btSave.TabIndex = 2;
-            this.btSave.Text = "保存记录";
-            this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // lbSampleID
             // 
@@ -138,8 +96,7 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DataSource = this.tbSteelAlgBindingSource;
-            this.comboBox1.DisplayMember = "steel";
+            this.comboBox1.DisplayMember = "alg";
             this.comboBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(483, 52);
@@ -147,159 +104,6 @@
             this.comboBox1.Size = new System.Drawing.Size(204, 32);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.ValueMember = "alg";
-            // 
-            // tbSteelAlgBindingSource
-            // 
-            this.tbSteelAlgBindingSource.DataMember = "tbSteelAlg";
-            this.tbSteelAlgBindingSource.DataSource = this.jominyDBDataSet;
-            // 
-            // jominyDBDataSet
-            // 
-            this.jominyDBDataSet.DataSetName = "jominyDBDataSet";
-            this.jominyDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tbSteelAlgTableAdapter
-            // 
-            this.tbSteelAlgTableAdapter.ClearBeforeFill = true;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SampleNo,
-            this.steelClass,
-            this.C,
-            this.Mn,
-            this.Si,
-            this.Ni,
-            this.Cr,
-            this.Ti,
-            this.Mo,
-            this.B,
-            this.Jominy,
-            this.algDateTimeDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.tbSampleBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 281);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(1042, 344);
-            this.dataGridView1.TabIndex = 6;
-            // 
-            // SampleNo
-            // 
-            this.SampleNo.DataPropertyName = "sampleId";
-            this.SampleNo.HeaderText = "样品编号";
-            this.SampleNo.Name = "SampleNo";
-            this.SampleNo.ReadOnly = true;
-            this.SampleNo.Width = 120;
-            // 
-            // steelClass
-            // 
-            this.steelClass.DataPropertyName = "steel";
-            this.steelClass.HeaderText = "钢种";
-            this.steelClass.Name = "steelClass";
-            this.steelClass.ReadOnly = true;
-            // 
-            // C
-            // 
-            this.C.DataPropertyName = "C";
-            dataGridViewCellStyle1.Format = "N3";
-            dataGridViewCellStyle1.NullValue = null;
-            this.C.DefaultCellStyle = dataGridViewCellStyle1;
-            this.C.HeaderText = "C";
-            this.C.Name = "C";
-            this.C.ReadOnly = true;
-            this.C.Width = 50;
-            // 
-            // Mn
-            // 
-            this.Mn.DataPropertyName = "MN";
-            dataGridViewCellStyle2.Format = "N3";
-            this.Mn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Mn.HeaderText = "Mn";
-            this.Mn.Name = "Mn";
-            this.Mn.ReadOnly = true;
-            this.Mn.Width = 50;
-            // 
-            // Si
-            // 
-            this.Si.DataPropertyName = "SI";
-            dataGridViewCellStyle3.Format = "N3";
-            this.Si.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Si.HeaderText = "Si";
-            this.Si.Name = "Si";
-            this.Si.ReadOnly = true;
-            this.Si.Width = 50;
-            // 
-            // Ni
-            // 
-            this.Ni.DataPropertyName = "NI";
-            dataGridViewCellStyle4.Format = "N3";
-            this.Ni.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Ni.HeaderText = "Ni";
-            this.Ni.Name = "Ni";
-            this.Ni.ReadOnly = true;
-            this.Ni.Width = 50;
-            // 
-            // Cr
-            // 
-            this.Cr.DataPropertyName = "CR";
-            dataGridViewCellStyle5.Format = "N3";
-            this.Cr.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Cr.HeaderText = "Cr";
-            this.Cr.Name = "Cr";
-            this.Cr.ReadOnly = true;
-            this.Cr.Width = 50;
-            // 
-            // Ti
-            // 
-            this.Ti.DataPropertyName = "TI";
-            this.Ti.HeaderText = "Ti";
-            this.Ti.Name = "Ti";
-            this.Ti.ReadOnly = true;
-            this.Ti.Width = 50;
-            // 
-            // Mo
-            // 
-            this.Mo.DataPropertyName = "MO";
-            this.Mo.HeaderText = "Mo";
-            this.Mo.Name = "Mo";
-            this.Mo.ReadOnly = true;
-            this.Mo.Width = 50;
-            // 
-            // B
-            // 
-            this.B.DataPropertyName = "B";
-            this.B.HeaderText = "B";
-            this.B.Name = "B";
-            this.B.ReadOnly = true;
-            this.B.Width = 50;
-            // 
-            // Jominy
-            // 
-            this.Jominy.DataPropertyName = "jominy";
-            this.Jominy.HeaderText = "端淬度";
-            this.Jominy.Name = "Jominy";
-            this.Jominy.ReadOnly = true;
-            this.Jominy.Width = 300;
-            // 
-            // algDateTimeDataGridViewTextBoxColumn
-            // 
-            this.algDateTimeDataGridViewTextBoxColumn.DataPropertyName = "algDateTime";
-            this.algDateTimeDataGridViewTextBoxColumn.HeaderText = "计算时间";
-            this.algDateTimeDataGridViewTextBoxColumn.Name = "algDateTimeDataGridViewTextBoxColumn";
-            this.algDateTimeDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // tbSampleBindingSource
-            // 
-            this.tbSampleBindingSource.DataMember = "tbSample";
-            this.tbSampleBindingSource.DataSource = this.jominyDBDataSet1;
-            // 
-            // jominyDBDataSet1
-            // 
-            this.jominyDBDataSet1.DataSetName = "jominyDBDataSet1";
-            this.jominyDBDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // groupBox1
             // 
@@ -405,7 +209,7 @@
             this.tbMo.Name = "tbMo";
             this.tbMo.Size = new System.Drawing.Size(80, 28);
             this.tbMo.TabIndex = 14;
-            this.tbMo.Text = "0";
+            this.tbMo.Text = "0.010800000000000";
             // 
             // tbB
             // 
@@ -414,7 +218,7 @@
             this.tbB.Name = "tbB";
             this.tbB.Size = new System.Drawing.Size(80, 28);
             this.tbB.TabIndex = 9;
-            this.tbB.Text = "0";
+            this.tbB.Text = "0.002150000000000";
             // 
             // label16
             // 
@@ -433,7 +237,7 @@
             this.tbNi.Name = "tbNi";
             this.tbNi.Size = new System.Drawing.Size(80, 28);
             this.tbNi.TabIndex = 9;
-            this.tbNi.Text = "0";
+            this.tbNi.Text = "0.030000000000000";
             // 
             // tbSi
             // 
@@ -442,7 +246,7 @@
             this.tbSi.Name = "tbSi";
             this.tbSi.Size = new System.Drawing.Size(80, 28);
             this.tbSi.TabIndex = 5;
-            this.tbSi.Text = "0";
+            this.tbSi.Text = "0.288000000000000";
             // 
             // tbTi
             // 
@@ -451,7 +255,7 @@
             this.tbTi.Name = "tbTi";
             this.tbTi.Size = new System.Drawing.Size(80, 28);
             this.tbTi.TabIndex = 12;
-            this.tbTi.Text = "0";
+            this.tbTi.Text = "0.026200000000000";
             // 
             // tbC
             // 
@@ -460,7 +264,7 @@
             this.tbC.Name = "tbC";
             this.tbC.Size = new System.Drawing.Size(80, 28);
             this.tbC.TabIndex = 3;
-            this.tbC.Text = "0";
+            this.tbC.Text = "0.329400000000000";
             // 
             // tbCr
             // 
@@ -469,7 +273,7 @@
             this.tbCr.Name = "tbCr";
             this.tbCr.Size = new System.Drawing.Size(80, 28);
             this.tbCr.TabIndex = 10;
-            this.tbCr.Text = "0";
+            this.tbCr.Text = "0.167000000000000";
             // 
             // tbMn
             // 
@@ -478,41 +282,39 @@
             this.tbMn.Name = "tbMn";
             this.tbMn.Size = new System.Drawing.Size(80, 28);
             this.tbMn.TabIndex = 4;
-            this.tbMn.Text = "0";
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerReportsProgress = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.tbMn.Text = "1.032000000000000";
             // 
             // btReCal
             // 
             this.btReCal.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btReCal.Location = new System.Drawing.Point(763, 123);
+            this.btReCal.Location = new System.Drawing.Point(763, 176);
             this.btReCal.Name = "btReCal";
-            this.btReCal.Size = new System.Drawing.Size(120, 49);
+            this.btReCal.Size = new System.Drawing.Size(173, 49);
             this.btReCal.TabIndex = 1;
-            this.btReCal.Text = "重新计算";
+            this.btReCal.Text = "清空数据";
             this.btReCal.UseVisualStyleBackColor = true;
+            this.btReCal.Click += new System.EventHandler(this.btReCal_Click);
             // 
-            // tbSampleTableAdapter
+            // tbResult
             // 
-            this.tbSampleTableAdapter.ClearBeforeFill = true;
+            this.tbResult.Location = new System.Drawing.Point(19, 287);
+            this.tbResult.Multiline = true;
+            this.tbResult.Name = "tbResult";
+            this.tbResult.Size = new System.Drawing.Size(864, 319);
+            this.tbResult.TabIndex = 22;
             // 
             // FormYuce
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1042, 625);
+            this.ClientSize = new System.Drawing.Size(1062, 645);
+            this.Controls.Add(this.tbResult);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbSampleID);
-            this.Controls.Add(this.btSave);
             this.Controls.Add(this.btReCal);
             this.Controls.Add(this.btCal);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -522,13 +324,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormYuce";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormYuce_FormClosing);
             this.Load += new System.EventHandler(this.FormYuce_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.tbSteelAlgBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -539,15 +335,10 @@
         #endregion
 
         private System.Windows.Forms.Button btCal;
-        private System.Windows.Forms.Button btSave;
         private System.Windows.Forms.Label lbSampleID;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private jominyDBDataSet jominyDBDataSet;
-        private System.Windows.Forms.BindingSource tbSteelAlgBindingSource;
-        private jominyDBDataSetTableAdapters.tbSteelAlgTableAdapter tbSteelAlgTableAdapter;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label4;
@@ -565,22 +356,7 @@
         private System.Windows.Forms.TextBox tbC;
         private System.Windows.Forms.TextBox tbCr;
         private System.Windows.Forms.TextBox tbMn;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Button btReCal;
-        private jominyDBDataSet1 jominyDBDataSet1;
-        private System.Windows.Forms.BindingSource tbSampleBindingSource;
-        private jominyDBDataSet1TableAdapters.tbSampleTableAdapter tbSampleTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SampleNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn steelClass;
-        private System.Windows.Forms.DataGridViewTextBoxColumn C;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Si;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ni;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ti;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Mo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn B;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Jominy;
-        private System.Windows.Forms.DataGridViewTextBoxColumn algDateTimeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox tbResult;
     }
 }

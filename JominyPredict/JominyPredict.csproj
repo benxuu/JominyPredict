@@ -11,6 +11,7 @@
     <AssemblyName>JominyPredict</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>发布\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -69,6 +69,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -88,6 +89,12 @@
     <Compile Include="FormCfgCal.Designer.cs">
       <DependentUpon>FormCfgCal.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDataQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataQuery.Designer.cs">
+      <DependentUpon>FormDataQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDataRpt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +112,12 @@
     </Compile>
     <Compile Include="FormIndex.Designer.cs">
       <DependentUpon>FormIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormOnline.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOnline.Designer.cs">
+      <DependentUpon>FormOnline.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTest.cs">
       <SubType>Form</SubType>
@@ -124,13 +137,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>jominyDBDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="jominyDBDataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
-    </Compile>
     <Compile Include="myEvent.cs" />
-    <Compile Include="OracleHelper.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,21 +152,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlHelper.cs" />
     <EmbeddedResource Include="FormCfgCal.resx">
       <DependentUpon>FormCfgCal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormDataRpt.resx">
-      <DependentUpon>FormDataRpt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormGraphRpt.resx">
-      <DependentUpon>FormGraphRpt.cs</DependentUpon>
+    <EmbeddedResource Include="FormDataQuery.resx">
+      <DependentUpon>FormDataQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIndex.resx">
       <DependentUpon>FormIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOnline.resx">
+      <DependentUpon>FormOnline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormStarting.resx">
       <DependentUpon>FormStarting.cs</DependentUpon>
@@ -194,17 +200,6 @@
     <None Include="jominyDBDataSet.xss">
       <DependentUpon>jominyDBDataSet.xsd</DependentUpon>
     </None>
-    <None Include="jominyDBDataSet1.xsc">
-      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="jominyDBDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>jominyDBDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="jominyDBDataSet1.xss">
-      <DependentUpon>jominyDBDataSet1.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -219,15 +214,11 @@
     <None Include="loading.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jominyDB.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="jominyDB.mdf" />
     <Content Include="jominyDB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>jominyDB.mdf</DependentUpon>
     </Content>
     <None Include="2.jpg" />
-    <Content Include="SADB.mdb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -250,6 +241,12 @@
       <ProductName>Windows Installer 4.5</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\benCommon\benCommon.csproj">
+      <Project>{82740d2b-da6a-4508-9b07-363499d323ed}</Project>
+      <Name>benCommon</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

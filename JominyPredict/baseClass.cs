@@ -3,28 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using benCommon;
+using System.Data.Sql;
+using System.Data.SqlClient;
 
 namespace JominyPredict
 {
     class baseClass
     {
-        private void AccessAppSettings()
-        {
-            //获取Configuration对象
-            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //根据Key读取<add>元素的Value
-            string name = config.AppSettings.Settings["name"].Value;
-            //写入<add>元素的Value
-            config.AppSettings.Settings["name"].Value = "fx163";
-            //增加<add>元素
-            config.AppSettings.Settings.Add("url", "http://www.fx163.net");
-            //删除<add>元素
-            config.AppSettings.Settings.Remove("name");
-            //一定要记得保存，写不带参数的config.Save()也可以
-            config.Save(ConfigurationSaveMode.Modified);
-            //刷新，否则程序读取的还是之前的值（可能已装入内存）
-            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
-        }
+     
 
         //public delegate double[] calJominy(double[,] input);
         public delegate void weituo();
@@ -40,7 +27,7 @@ namespace JominyPredict
         public static weituo closestart;
         //自定义事件委托
         public delegate void eventDelegate(object sender, myEventArgs e);
-        public static EasyAccess ea = new EasyAccess();
+        //public static EasyAccess ea = new EasyAccess();
        
         /// <summary>
         /// 测试样品编号是否已存在，返回true表示唯一（不存在），返回false表示已存在
@@ -50,14 +37,45 @@ namespace JominyPredict
         public static bool isOnly(string sampleId)
         {
             string sql = "select count(*) from tbSample where sampleID='" + sampleId + "'";
-            return (int)SqlHelper.ExecuteScalar(SqlHelper.connStr, sql) < 1;
+            return (int)db.ExcuteScalar(sql) < 1;
+            //return (int)SqlHelper.ExecuteScalar(SqlHelper.connStr, sql) < 1;
            // return (int)ea.ExcuteScalar(sql) < 1;
         }
         //测试检化验平台oracle数据库是否连通
         public static bool isOraceConn()
         {
-            return OracleHelper.TestConn();
+            return  OracleHelper.TestConn();
         }
+        /// <summary>
+        /// 判断算法输出结果是单面还是正反两面
+        /// </summary>
+        /// <param name="cal"></param>
+        /// <returns></returns>
+         public static bool isSinglePoints(string cal, out int outpoint) {
+          string sql = string.Format("select outpoint,distancepoint from tbSteelAlg where alg='{0}'", cal);
+          SqlDataReader sr = db.ExcuteReader(sql);
+          if (sr.Read())
+          {
+                        
+              outpoint = Convert.ToInt32(sr["outpoint"]);
+              //outpoint = sr.GetInt32(0);
+              int distancepoint = Convert.ToInt32(sr["distancepoint"]);
+          if (outpoint==distancepoint)
+          {
+              return true;
+          }
+          else
+          {
+              return false;
+          }
+          }
+          else
+          {
+              throw(new Exception());
+          }
+          
+      }
+
         /// <summary>
         /// 获取指定钢种的对应算法
         /// </summary>
@@ -75,6 +93,17 @@ namespace JominyPredict
                 return (string)SqlHelper.ExecuteScalar(SqlHelper.connStr, sql);
             }
 
+        }
+        public static string doubletostring(double[] doubledata)
+        {
+
+            string ss = string.Empty;
+            int x = doubledata.Count();
+            for (int i = 0; i < x; i++)
+            {
+                ss += doubledata[i].ToString("0.000") + ",";
+            }
+            return ss;
         }
         public class smpInfo
         {
@@ -97,32 +126,32 @@ namespace JominyPredict
             public bool isConfig = false;
         }
 
-        //根据钢种类型、规格，获取钢种信息，如预测点距离、是否已配置该试样算法。
-        public static smpInfo getsmpInfo(string STEEL_GRD, string SPEC)
-        {
-            string sql = "select  * from tb_steelAlg where steel='" + STEEL_GRD + "' and spec='" + SPEC + "'";
-            smpInfo s = new smpInfo();
-            System.Data.DataTable dt1 = ea.ExecuteDataTable(sql);
-            //System.Data
+    //    //根据钢种类型、规格，获取钢种信息，如预测点距离、是否已配置该试样算法。
+    //    public static smpInfo getsmpInfo(string STEEL_GRD, string SPEC)
+    //    {
+    //        string sql = "select  * from tb_steelAlg where steel='" + STEEL_GRD + "' and spec='" + SPEC + "'";
+    //        smpInfo s = new smpInfo();
+    //        System.Data.DataTable dt1 = ea.ExecuteDataTable(sql);
+    //        //System.Data
 
-            if (dt1.Rows.Count > 0)
-            {
-                s.dist1 = dt1.Rows[0]["DIST1"].ToString();
-                s.dist2 = dt1.Rows[0]["DIST2"].ToString();
-                s.dist3 = dt1.Rows[0]["DIST3"].ToString();
-                s.dist4 = dt1.Rows[0]["DIST4"].ToString();
-                s.dist5 = dt1.Rows[0]["DIST5"].ToString();
-                s.dist6 = dt1.Rows[0]["DIST6"].ToString();
-                s.alg = dt1.Rows[0]["alg"].ToString();
-                s.isConfig = true;
-            }
-            else
-            {
-                s.isConfig = false;
-            }
+    //        if (dt1.Rows.Count > 0)
+    //        {
+    //            s.dist1 = dt1.Rows[0]["DIST1"].ToString();
+    //            s.dist2 = dt1.Rows[0]["DIST2"].ToString();
+    //            s.dist3 = dt1.Rows[0]["DIST3"].ToString();
+    //            s.dist4 = dt1.Rows[0]["DIST4"].ToString();
+    //            s.dist5 = dt1.Rows[0]["DIST5"].ToString();
+    //            s.dist6 = dt1.Rows[0]["DIST6"].ToString();
+    //            s.alg = dt1.Rows[0]["alg"].ToString();
+    //            s.isConfig = true;
+    //        }
+    //        else
+    //        {
+    //            s.isConfig = false;
+    //        }
 
-            return s;
-        }
+    //        return s;
+    //    }
     }
 
     public class inputD

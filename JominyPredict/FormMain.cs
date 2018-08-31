@@ -118,12 +118,12 @@ namespace JominyPredict
                     myChild.Focus();
                   //  myChild.Refresh();
                     //为了解决首次打开子窗体显示不正常问题
-                    if (ContainMDIChild(typeof(FormIndex).ToString()))
-                    {
-                        myChild.TopMost = true;
-                        myChild.Show();
-                        myChild.Focus();
-                    }
+                    ////if (ContainMDIChild(typeof(FormIndex).ToString()))
+                    ////{
+                    ////    myChild.TopMost = true;
+                    ////    myChild.Show();
+                    ////    myChild.Focus();
+                    ////}
                    
                    // this.Refresh();
                     //myChild.Owner.Refresh();
@@ -188,6 +188,21 @@ namespace JominyPredict
         private void toolStripLabel6_Click(object sender, EventArgs e)
         {
             OpenWindow(typeof(FormGraphRpt).ToString());
+        }
+
+        private void toolStripLabel8_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormDataQuery).ToString());
+        }
+
+        private void toolStripLabel3_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormOnline).ToString());
         }
     }
 }

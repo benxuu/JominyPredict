@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using benCommon;
+using System.Data.SqlClient;
  
  
 
@@ -20,15 +22,16 @@ namespace JominyPredict
 
         private void FormYuce_Load(object sender, EventArgs e)
         {
-            // TODO:  这行代码将数据加载到表“jominyDBDataSet1.tbSample”中。您可以根据需要移动或删除它。
-            this.tbSampleTableAdapter.Fill(this.jominyDBDataSet1.tbSample);
-            // TODO:  这行代码将数据加载到表“jominyDBDataSet.tbSteelAlg”中。您可以根据需要移动或删除它。
-            this.tbSteelAlgTableAdapter.Fill(this.jominyDBDataSet.tbSteelAlg);
+            DataTable algdt = new DataTable();
+            algdt = db.ExcuteDataQuery("select Id, steel, alg from  tbSteelAlg order by Id asc");
+            comboBox1.DisplayMember = "steel";
+            comboBox1.ValueMember = "alg";
+            comboBox1.DataSource = algdt;
         }
 
         JominyCal jc = new JominyCal();
         private void btCal_Click(object sender, EventArgs e)
-        {
+        {            
             string sampleID = textBox1.Text.ToString();
             if ( sampleID == "")
             {
@@ -55,17 +58,69 @@ namespace JominyPredict
                     //cal1.inputData = inputData;//传值
                     //获取钢种成分一维数组
                     double[] input = { c, mn, si,  ni, cr,  ti, mo,  b };
-                    btCal.Enabled = false;
-                    var send = new object[4];//发送给计算线程的数据包
-                    send[0] = sampleID;
-                    send[1] = alg;
-                    send[2] = input;
-                    send[3] = steel;
+                 
+
+                    //btCal.Enabled = false;
+                    //var send = new object[4];//发送给计算线程的数据包
+                    //send[0] = sampleID;
+                    //send[1] = alg;
+                    //send[2] = input;
+                    //send[3] = steel;
  
                     baseClass.dstatusMsg("神经网络运行中，请耐心等待，不要关闭程序！！");
                     baseClass.dprogressbar(10);
-                    backgroundWorker1.WorkerSupportsCancellation = true;
-                    backgroundWorker1.RunWorkerAsync(send);//开始后台线程计算
+                    //backgroundWorker1.WorkerSupportsCancellation = true;
+                    //backgroundWorker1.RunWorkerAsync(send);//开始后台线程计算
+                    //btCal.Enabled = false;
+                    double[] ans = jc.steelcal_double(alg, input);
+                    
+
+                    baseClass.dstatusMsg("神经网络计算完成,正在进行后续数据处理！");
+                
+                    int ic = ans.Count();
+
+
+                    //根据算法配置获取输出数据定义
+                    //string sql_getcfg = string.Format("select * from tbSteelAlg where alg='{0}'",alg);
+                    int outpoint;
+                    bool issiglepoint = baseClass.isSinglePoints(alg, out outpoint);
+                    string sql = string.Format("insert into tbSample( sampleId,steel, c, mn, si,  ni, cr,  ti, mo, b,jominy,algDateTime) values('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},'{10}','{11}')", sampleID, steel, input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], ans, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    db.ExcuteNonQuery(sql);        
+                    tbResult.AppendText("试件编号："+sampleID.ToString()+"  钢种："+steel);
+                    tbResult.AppendText("\r\n测试时间："+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    tbResult.AppendText("\r\n化学成分："+ string.Format("c:{0}, mn:{1}, si:{2}, ni:{3}, cr:{4}, ti:{5}, mo:{6}, b:{7}", input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7]));
+                   tbResult.AppendText("\r\n测试结果：");
+                    if (issiglepoint)
+                    {
+                        Decimal dp1 = (Decimal)db.ExcuteScalar("select dp1 from tbSteelAlg where alg=" + alg);
+                        tbResult.AppendText("\r\n距离1[" + dp1+"]:"+ans[0].ToString("0.000"));
+                        string sql2 = "update tbSample set p1=" + ans[0];
+                        for (int i = 2; i < ans.Count() + 2; i++)
+                        {
+                            sql2 += ",p" + i + "=" + ans[i-1];
+                            Decimal dp = (Decimal)db.ExcuteScalar("select dp" + i + " from tbSteelAlg where alg=" + alg);
+                            tbResult.AppendText("\r\n距离" + i + "[" + dp + "]:" + ans[i - 1].ToString("0.000"));
+                        }
+                        sql2 += string.Format("where sampleId='{0}'", sampleID);
+                        db.ExcuteNonQuery(sql2);
+                       
+                    }
+                    else
+                    {
+                        Decimal dp1 = (Decimal)db.ExcuteScalar("select dp1 from tbSteelAlg where alg='" + alg + "'");
+                        tbResult.AppendText("\r\n距离1[" + dp1 + "]:" + ans[0].ToString("0.000") + "(正面)," + ans[1].ToString("0.000") + "(反面)");
+                        string sql2 = string.Format("update tbSample set p1={0},n1={1}", ans[0], ans[1]);
+                        for (int i = 2; i <= ans.Count() / 2; i++)
+                        {                 
+                            sql2 += string.Format(",p{0}={1},n{0}={2}", i, ans[2 * i - 2], ans[2 * i - 1]);
+                            Decimal dp = (Decimal)db.ExcuteScalar("select dp" + i + " from tbSteelAlg where alg='" + alg + "'");
+                            tbResult.AppendText("\r\n距离" + i + "[" + dp + "]:" + ans[2 * i - 2].ToString("0.000") + "(正面)," + ans[2 * i - 1].ToString("0.000") + "(反面)");
+                        }
+                        sql2 += string.Format(" where sampleId='{0}'", sampleID);
+                        db.ExcuteNonQuery(sql2);
+                    }
+                    
+
                 }
                 else
                 {
@@ -74,67 +129,24 @@ namespace JominyPredict
                 }
         }
 
-        private void FormYuce_FormClosing(object sender, FormClosingEventArgs e)
+    
+
+     
+
+        private void btReCal_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker1.IsBusy)
+            foreach (Control c in this.Controls)
+
             {
-                backgroundWorker1.CancelAsync();
+                if (c is TextBox)
+                {
+                    c.Text = "";
+                }
             }
+
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var receive = e.Argument as object[];
-            string sampleid = (string)receive[0];
-            string alg = (string)receive[1];
-            double[] input = (double[])receive[2];
-            string  steel=(string)receive[3];
-           // MessageBox.Show("钢种算法："+alg+"--sampleid:"+sampleid+"--input:"+input[0]);
-            int i = 9;
-            backgroundWorker1.ReportProgress(i, String.Format("当前值是 {0} ", i));
-           // MessageBox.Show(jc.steelcal_string(alg,input));
-            string ans=jc.steelcal_string(alg,input);
-            MessageBox.Show(ans);
-           // double[] ans = jc.steelcal_double(alg, input);
-            //存储数据到datagrid；
-            //string sql = "insert into tbSample( sampleId,steel,c, mn, si,  cu, ni, cr, v, ti,mo,al,b,jominy1,jominy2,jominy3,jominy4,jominy5,jominy6,jominy7,jominy8,jominy9,jominy10,alg,isalg,algdatetime) " +
-            //                        "values('" + cal1.sampleID + "','" + cal1.steel + "','" + cal1.input[0] + "','" + cal1.input[1] + "','" + cal1.input[2] + "','" + cal1.input[3] + "','" + cal1.input[4] + "','" + cal1.input[5] + "','" + cal1.input[6] + "','" + cal1.input[7] + "','" + cal1.input[8] + "','" + cal1.input[9] + "','" + cal1.input[10] + "','" +
-            //                               cal1.output[0].ToString("0.000") + "','" + cal1.output[1].ToString("0.000") + "','" + cal1.output[2].ToString("0.000") + "','" + cal1.output[3].ToString("0.000") + "','" + cal1.output[4].ToString("0.000") + "','" +
-            //                               cal1.output[5].ToString("0.000") + "','" + cal1.output[6].ToString("0.000") + "','" + cal1.output[7].ToString("0.000") + "','" + cal1.output[8].ToString("0.000") + "','" + cal1.output[9].ToString("0.000") + "','" +
-            //                               cal1.alg + "',true,'" + DateTime.Now.ToString() + "')";
-            string sql = string.Format("insert into tbSample( sampleId,steel, c, mn, si,  ni, cr,  ti, mo, b,jominy,algDateTime) values('{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},'{10}','{11}')", sampleid, steel, input[0], input[1], input[2], input[3], input[4], input[5], input[6], input[7], ans, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") );
-            SqlHelper.ExecuteNonQuerySql(SqlHelper.connStr,sql);
-            this.tbSampleTableAdapter.Fill(this.jominyDBDataSet1.tbSample);
-            i = 99;
-            backgroundWorker1.ReportProgress(i, String.Format("当前值是 {0} ", i));
-        }
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            MessageBox.Show("计算完成！");
-            btCal.Enabled = true;
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //进度参数转换
-           // this.progressBar1.Value = e.ProgressPercentage;
-            baseClass.dprogressbar(e.ProgressPercentage);
-            baseClass.dstatusMsg(e.UserState.ToString());
-             
-        }
-
-        private void btSave_Click(object sender, EventArgs e)
-        {
-            this.tbSampleTableAdapter.Update(this.jominyDBDataSet1.tbSample);
-            //for (int i = 0; i < this.ds_sample.Tables["tb_sample"].Rows.Count; i++)
-            //{
-            //    this.ds_sample.Tables["tb_sample"].Rows[i]["issave"] = true;
-
-            //}
-            //this.tb_sampleTableAdapter.Update(ds_sample);
-            //filldatagridview();
-            MessageBox.Show("保存成功！！");
-        }
+        
         
 
     }

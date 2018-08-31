@@ -6,7 +6,7 @@ using System.Data;
 using System.Configuration;
 
 
-namespace JominyPredict
+namespace benCommon
 {
     public static class OracleHelper
     {

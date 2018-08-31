@@ -23,14 +23,14 @@ namespace JominyPredict
 
         }
 
-        private void btCancel_Click(object sender, EventArgs e)
-        {
-            this.tbSteelAlgTableAdapter.Fill(this.jominyDBDataSet.tbSteelAlg);
-        }
-
         private void btSave_Click(object sender, EventArgs e)
         {
             this.tbSteelAlgTableAdapter.Update(this.jominyDBDataSet.tbSteelAlg);
+        }
+
+        private void btCancel_Click(object sender, EventArgs e)
+        {
+            this.tbSteelAlgTableAdapter.Fill(this.jominyDBDataSet.tbSteelAlg);
         }
     }
 }
