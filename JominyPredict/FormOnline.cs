@@ -114,10 +114,116 @@ namespace JominyPredict
             this.Dock = DockStyle.Fill;
 
             //button4.Visible = false;
-            //bk.DoWork += new DoWorkEventHandler(bk_DoWork);
-            //bk.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bk_RunWorkerCompleted);
+            bk.DoWork += new DoWorkEventHandler(bk_DoWork);
+            bk.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bk_RunWorkerCompleted);
         }
 
+        void bk_DoWork(object sender, DoWorkEventArgs e)
+        { 
+
+            ////计算端淬度
+            //if (cal1.calculate())
+            //{
+
+            //}
+            //else
+            //{
+            //    MessageBox.Show("钢种算法未设定！请到基础配置区配置以下钢种的预测算法：" + cal1.steel);
+            //    //backgroundWorker1.CancelAsync();
+            //}
+      
+
+            baseClass.dprogressbar(90);
+        }
+
+        void bk_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            //单笔计算完成后的处理
+            baseClass.dstatusMsg("钢种编号为：" + mytable.Rows[rowID]["SMP_NO"].ToString() + "的数据计算完成！！");
+
+            string sqlA = "insert into QUENCH_RSLT";
+            string sqlQ = "insert into NG.TX_IO_QUENCH_RSLT";
+            string sqlV="";
+          //  switch (cal1.alg)
+          //  {
+          //      case "IEE690":
+          //          sqlV = "(TRUSTDEED_NO,SMP_NO,INS_TS,JOMINY_DIST1,JOMINY_RST1,JOMINY_DIST2,JOMINY_RST2,JOMINY_DIST3,JOMINY_RST3,JOMINY_DIST4,JOMINY_RST4,JOMINY_DIST5,JOMINY_RST5," +
+          //         " JOMINY_DIST6,JOMINY_RST6,JOMINY_DIST7,JOMINY_RST7,JOMINY_DIST8,JOMINY_RST8,JOMINY_DIST9,JOMINY_RST9,JOMINY_DIST10,JOMINY_RST10," +
+          //         " MSG_FLAG) values( '" +
+          //  mytable.Rows[rowID]["TRUSTDEED_NO"].ToString() + "','" +
+          //  mytable.Rows[rowID]["SMP_NO"].ToString() + "','" +
+          // DateTime.Now.ToString("yyyyMMddHHmmss") + "','" +
+          // smpInfo1.dist1 + "','" +
+          //   cal1.output[0].ToString("0.0") + "','" +
+          //    smpInfo1.dist2 + "','" +
+          //     cal1.output[1].ToString("0.0") + "','" +
+          //     smpInfo1.dist3 + "','" +
+          //      cal1.output[2].ToString("0.0") + "','" +
+          //      smpInfo1.dist4 + "','" +
+          //         cal1.output[3].ToString("0.0") + "','" +
+          //       smpInfo1.dist5 + "','" +
+          //         cal1.output[4].ToString("0.0") + "'" +
+          //          smpInfo1.dist6 + "','" +
+          //   cal1.output[5].ToString("0.0") + "','" +
+          //    smpInfo1.dist7 + "','" +
+          //     cal1.output[6].ToString("0.0") + "','" +
+          //     smpInfo1.dist8 + "','" +
+          //      cal1.output[7].ToString("0.0") + "','" +
+          //      smpInfo1.dist9 + "','" +
+          //         cal1.output[8].ToString("0.0") + "','" +
+          //       smpInfo1.dist10 + "','" +
+          //         cal1.output[9].ToString("0.0") + "'";
+          //          break;
+
+          //      default:
+          //          sqlV = "(TRUSTDEED_NO,SMP_NO,INS_TS,JOMINY_DIST1,JOMINY_RST1,JOMINY_DIST2,JOMINY_RST2,JOMINY_DIST3,JOMINY_RST3,JOMINY_DIST4,JOMINY_RST4,JOMINY_DIST5,JOMINY_RST5,MSG_FLAG) values( '" +
+          // mytable.Rows[rowID]["TRUSTDEED_NO"].ToString() + "','" +
+          // mytable.Rows[rowID]["SMP_NO"].ToString() + "','" +
+          //DateTime.Now.ToString("yyyyMMddHHmmss") + "','" +
+          //smpInfo1.dist1 + "','" +
+          //  cal1.output[0].ToString("0.0") + "','" +
+          //   smpInfo1.dist2 + "','" +
+          //    cal1.output[1].ToString("0.0") + "','" +
+          //    smpInfo1.dist3 + "','" +
+          //     cal1.output[2].ToString("0.0") + "','" +
+          //     smpInfo1.dist4 + "','" +
+          //        cal1.output[3].ToString("0.0") + "','" +
+          //      smpInfo1.dist5 + "','" +
+          //        cal1.output[4].ToString("0.0") + "'";
+          //          break;
+          //  }
+
+
+
+
+            //存入检化验平台；
+            string sql = sqlQ + sqlV + ",'N')";
+            string outstr;
+
+            //将已计算的数据行打标记
+            sql = "update QUENCH_CHEM set MSG_FLAG='Y' where SMP_NO='" + mytable.Rows[rowID]["SMP_NO"].ToString() + "' and TRUSTDEED_NO='" + mytable.Rows[rowID]["TRUSTDEED_NO"].ToString() + "'";
+            db.ExcuteNonQuery(sql); 
+            if (OracleHelper.UpdateData(out outstr, sql))
+            {
+
+                //计算结果成功存入检化验，后保存到本地
+                sql = sqlA + sqlV + ",'Y')";
+                db.ExcuteNonQuery(sql); 
+
+
+            }
+            else
+            {
+                //计算结果未存入检化验，后保存到本地
+                sql = sqlA + sqlV + ",'N')";
+                db.ExcuteNonQuery(sql); 
+
+                baseClass.dstatusMsg(outstr);
+            } 
+            //alg(++rowID);
+        }
+
+        //检查数据，将未上传平台的数据上传，未下载的数据下载，保持同步
         private void button2_Click(object sender, EventArgs e)
         {
             string sql = "select TRUSTDEED_NO,SMP_NO,INS_TS,JOMINY_DIST1,JOMINY_RST1,JOMINY_DIST2,JOMINY_RST2,JOMINY_DIST3,JOMINY_RST3,JOMINY_DIST4,JOMINY_RST4,JOMINY_DIST5,JOMINY_RST5," +
@@ -167,7 +273,8 @@ namespace JominyPredict
                     {
                         //计算结果成功存入检化验，后保存到本地
                         sql = "updata QUENCH_RSLT set MSG_FLAG='Y' where TRUSTDEED_NO='" + da.GetValue(0).ToString() + "' and SMP_NO='" + da.GetValue(1).ToString() + "'";
-                        baseClass.ea.ExecuteNonQuery(sql);
+                        db.ExcuteNonQuery(sql);
+                       
                     }
                     else
                     {

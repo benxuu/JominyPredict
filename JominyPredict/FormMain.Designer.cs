@@ -38,12 +38,13 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripbtRGLR = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
@@ -114,6 +115,7 @@
             this.toolStripLabel5,
             this.toolStripLabel6,
             this.toolStripLabel2,
+            this.toolStripButton4,
             this.toolStripButton3,
             this.toolStripLabel7,
             this.toolStripLabel8,
@@ -141,19 +143,19 @@
             this.toolStripLabel4.Size = new System.Drawing.Size(152, 24);
             this.toolStripLabel4.Text = "数据分析打印";
             // 
-            // toolStripLabel7
-            // 
-            this.toolStripLabel7.Font = new System.Drawing.Font("隶书", 12F);
-            this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(152, 24);
-            this.toolStripLabel7.Text = "基础信息维护";
-            // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Font = new System.Drawing.Font("隶书", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripLabel2.Name = "toolStripLabel2";
             this.toolStripLabel2.Size = new System.Drawing.Size(152, 24);
             this.toolStripLabel2.Text = "实验数据管理";
+            // 
+            // toolStripLabel7
+            // 
+            this.toolStripLabel7.Font = new System.Drawing.Font("隶书", 12F);
+            this.toolStripLabel7.Name = "toolStripLabel7";
+            this.toolStripLabel7.Size = new System.Drawing.Size(152, 24);
+            this.toolStripLabel7.Text = "基础信息维护";
             // 
             // toolStripbtRGLR
             // 
@@ -194,6 +196,16 @@
             this.toolStripLabel6.Size = new System.Drawing.Size(152, 28);
             this.toolStripLabel6.Text = "图形报表";
             this.toolStripLabel6.Click += new System.EventHandler(this.toolStripLabel6_Click);
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(152, 28);
+            this.toolStripButton4.Text = "数据浏览";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
             // toolStripButton3
             // 
@@ -284,6 +296,7 @@
         private System.Windows.Forms.ToolStripButton toolStripLabel8;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
     }
 }
 

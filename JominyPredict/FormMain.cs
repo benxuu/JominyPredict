@@ -183,6 +183,7 @@ namespace JominyPredict
         private void toolStripLabel5_Click(object sender, EventArgs e)
         {
             OpenWindow(typeof(FormDataRpt).ToString());
+            baseClass.wtFormRptshowData();
         }
         //图形报表
         private void toolStripLabel6_Click(object sender, EventArgs e)
@@ -198,11 +199,18 @@ namespace JominyPredict
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             OpenWindow(typeof(FormDataQuery).ToString());
+            baseClass.wtFormDataQueryshowData();
+
         }
 
         private void toolStripLabel3_Click(object sender, EventArgs e)
         {
             OpenWindow(typeof(FormOnline).ToString());
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            OpenWindow(typeof(FormDataView).ToString());
         }
     }
 }

@@ -20,7 +20,8 @@ namespace JominyPredict
         public delegate void delegateInt(int intValue);
         public static delegateStr dstatusMsg;
         public static delegateInt dprogressbar;
-        public static weituo wtFormRptshowData;
+        public static weituo wtFormRptshowData;//数据报表
+        public static weituo wtFormDataQueryshowData;//数据查询
         public static weituo wtFormRptfigshowData;
         public static weituo wtFormRptCXshowData;
         //public static weituo loadyuce;

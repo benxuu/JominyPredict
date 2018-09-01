@@ -14,13 +14,28 @@ namespace JominyPredict
         public FormDataQuery()
         {
             InitializeComponent();
-           
+            baseClass.wtFormDataQueryshowData=showData;   
         }
+      
+          query q = new query();
+        public void showData()
+        {
 
+            DialogResult result = q.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                dataGridView1.DataSource = q.newDatetable;
+            }
+            else
+            {
+                MessageBox.Show("你没选择任何数据！");
+            }
+        }
         private void FormDataQuery_Load(object sender, EventArgs e)
         {
+            this.Dock = DockStyle.Fill;//填充父窗体 
             // TODO:  这行代码将数据加载到表“jominyDBDataSet.tbSample”中。您可以根据需要移动或删除它。
-            this.tbSampleTableAdapter.Fill(this.jominyDBDataSet.tbSample);
+            //this.tbSampleTableAdapter.Fill(this.jominyDBDataSet.tbSample);
             dataGridView1.ReadOnly = true;
             btcancel.Enabled = false;
             btsave.Enabled = false;
@@ -57,6 +72,11 @@ namespace JominyPredict
                     i += 2;
                 }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

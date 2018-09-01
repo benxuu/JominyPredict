@@ -1,6 +1,6 @@
 ﻿namespace JominyPredict
 {
-    partial class FormDataQuery
+    partial class FormDataView
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.jominyDBDataSet = new JominyPredict.jominyDBDataSet();
+            this.tbSampleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbSampleTableAdapter = new JominyPredict.jominyDBDataSetTableAdapters.tbSampleTableAdapter();
             this.sampleIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.steelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,16 +75,10 @@
             this.n13DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.n14DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.n15DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbSampleBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.jominyDBDataSet = new JominyPredict.jominyDBDataSet();
-            this.tbSampleTableAdapter = new JominyPredict.jominyDBDataSetTableAdapters.tbSampleTableAdapter();
-            this.bteditenbale = new System.Windows.Forms.Button();
-            this.btsave = new System.Windows.Forms.Button();
-            this.btcancel = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -91,9 +88,8 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(0, 50, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(1245, 513);
+            this.panel1.Size = new System.Drawing.Size(1209, 402);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // dataGridView1
             // 
@@ -146,9 +142,22 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 50);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 30;
-            this.dataGridView1.Size = new System.Drawing.Size(1245, 463);
+            this.dataGridView1.Size = new System.Drawing.Size(1209, 352);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridView1_DataBindingComplete);
+            // 
+            // jominyDBDataSet
+            // 
+            this.jominyDBDataSet.DataSetName = "jominyDBDataSet";
+            this.jominyDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tbSampleBindingSource
+            // 
+            this.tbSampleBindingSource.DataMember = "tbSample";
+            this.tbSampleBindingSource.DataSource = this.jominyDBDataSet;
+            // 
+            // tbSampleTableAdapter
+            // 
+            this.tbSampleTableAdapter.ClearBeforeFill = true;
             // 
             // sampleIdDataGridViewTextBoxColumn
             // 
@@ -396,66 +405,19 @@
             this.n15DataGridViewTextBoxColumn.HeaderText = "n15";
             this.n15DataGridViewTextBoxColumn.Name = "n15DataGridViewTextBoxColumn";
             // 
-            // tbSampleBindingSource
-            // 
-            this.tbSampleBindingSource.DataMember = "tbSample";
-            this.tbSampleBindingSource.DataSource = this.jominyDBDataSet;
-            // 
-            // jominyDBDataSet
-            // 
-            this.jominyDBDataSet.DataSetName = "jominyDBDataSet";
-            this.jominyDBDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tbSampleTableAdapter
-            // 
-            this.tbSampleTableAdapter.ClearBeforeFill = true;
-            // 
-            // bteditenbale
-            // 
-            this.bteditenbale.Location = new System.Drawing.Point(203, 566);
-            this.bteditenbale.Name = "bteditenbale";
-            this.bteditenbale.Size = new System.Drawing.Size(111, 46);
-            this.bteditenbale.TabIndex = 1;
-            this.bteditenbale.Text = "启用编辑";
-            this.bteditenbale.UseVisualStyleBackColor = true;
-            this.bteditenbale.Click += new System.EventHandler(this.bteditenbale_Click);
-            // 
-            // btsave
-            // 
-            this.btsave.Location = new System.Drawing.Point(464, 566);
-            this.btsave.Name = "btsave";
-            this.btsave.Size = new System.Drawing.Size(111, 46);
-            this.btsave.TabIndex = 1;
-            this.btsave.Text = "保存";
-            this.btsave.UseVisualStyleBackColor = true;
-            this.btsave.Click += new System.EventHandler(this.btsave_Click);
-            // 
-            // btcancel
-            // 
-            this.btcancel.Location = new System.Drawing.Point(701, 566);
-            this.btcancel.Name = "btcancel";
-            this.btcancel.Size = new System.Drawing.Size(111, 46);
-            this.btcancel.TabIndex = 1;
-            this.btcancel.Text = "撤销";
-            this.btcancel.UseVisualStyleBackColor = true;
-            this.btcancel.Click += new System.EventHandler(this.btcancel_Click);
-            // 
-            // FormDataQuery
+            // FormDataView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1245, 695);
-            this.Controls.Add(this.btcancel);
-            this.Controls.Add(this.btsave);
-            this.Controls.Add(this.bteditenbale);
+            this.ClientSize = new System.Drawing.Size(1209, 630);
             this.Controls.Add(this.panel1);
-            this.Name = "FormDataQuery";
-            this.Text = "FormDataQuery";
-            this.Load += new System.EventHandler(this.FormDataQuery_Load);
+            this.Name = "FormDataView";
+            this.Text = "FormDataView";
+            this.Load += new System.EventHandler(this.FormDataView_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.jominyDBDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbSampleBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,9 +429,6 @@
         private jominyDBDataSet jominyDBDataSet;
         private System.Windows.Forms.BindingSource tbSampleBindingSource;
         private jominyDBDataSetTableAdapters.tbSampleTableAdapter tbSampleTableAdapter;
-        private System.Windows.Forms.Button bteditenbale;
-        private System.Windows.Forms.Button btsave;
-        private System.Windows.Forms.Button btcancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn sampleIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn steelDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDataGridViewTextBoxColumn;

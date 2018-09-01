@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="baseClass.cs" />
-    <Compile Include="easyAccess.cs" />
     <Compile Include="FormCfgCal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +99,12 @@
     </Compile>
     <Compile Include="FormDataRpt.Designer.cs">
       <DependentUpon>FormDataRpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDataView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataView.Designer.cs">
+      <DependentUpon>FormDataView.cs</DependentUpon>
     </Compile>
     <Compile Include="FormGraphRpt.cs">
       <SubType>Form</SubType>
@@ -152,11 +157,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="query.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="query.Designer.cs">
+      <DependentUpon>query.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormCfgCal.resx">
       <DependentUpon>FormCfgCal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDataQuery.resx">
       <DependentUpon>FormDataQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataRpt.resx">
+      <DependentUpon>FormDataRpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataView.resx">
+      <DependentUpon>FormDataView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormIndex.resx">
       <DependentUpon>FormIndex.cs</DependentUpon>
@@ -186,7 +203,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="query.resx">
+      <DependentUpon>query.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="ReportData.rdlc" />
     <EmbeddedResource Include="ReportSample.rdlc" />
     <None Include="app.config" />
     <None Include="jominyDBDataSet.xsc">
@@ -214,9 +235,12 @@
     <None Include="loading.JPG" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jominyDB.mdf" />
+    <Content Include="jominyDB.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="jominyDB_log.ldf">
       <DependentUpon>jominyDB.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="2.jpg" />
   </ItemGroup>
